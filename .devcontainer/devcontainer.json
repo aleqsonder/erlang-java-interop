@@ -1,0 +1,36 @@
+{
+  "name": "Erlang + Java Interop (Debian Stable)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "pgourlain.erlang",
+        "redhat.java",
+        "vscjava.vscode-java-pack"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/java-17-openjdk-amd64",
+            "default": true
+          }
+        ]
+      }
+    }
+  },
+  // Пробрасываем порт epmd и диапазон портов Erlang-нод
+  "forwardPorts": [4369, 9000, 9001],
+  "portsAttributes": {
+    "4369": { "label": "epmd" },
+    "9000": { "label": "Erlang node 1" },
+    "9001": { "label": "Erlang node 2 / Java node" }
+  },
+  "postCreateCommand": "bash setup.sh",
+  "remoteUser": "vscode"
+}
