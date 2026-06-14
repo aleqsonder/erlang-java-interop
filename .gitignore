@@ -1,16 +1,7 @@
-# Java
+# java
 *.class
 *.jar
 target/
-*.iml
-.idea/
 
-# Erlang
+# erlang
 *.beam
-ebin/
-_build/
-.rebar/
-
-# Misc
-*.log
-*.tmp
