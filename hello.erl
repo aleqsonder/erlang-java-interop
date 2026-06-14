@@ -1,8 +1,13 @@
+%%! -sname hello
+
 -module(hello).
--export([hello/0]).
+-export([main/1]).
 
-hello() ->
-	io:format("Hello from Erlang!~n").
+main([Msg]) ->
+	{ok, _} = net_kernel:start([hello, shortnames]),
+	Host = net_adm:localhost(),
+	Node = list_to_atom("java@" ++ Host),
+	pong = net_adm:ping(Node),
 
-main(_Args) ->
-	hello().
+	Resp = {hello, Node} ! {self(), Msg},
+	io:format("resp: ~p~n", [Resp]).
